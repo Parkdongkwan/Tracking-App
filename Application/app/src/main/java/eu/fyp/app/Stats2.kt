@@ -51,8 +51,14 @@ class Stats2 : AppCompatActivity() {
         }
     }
 
-    fun redirectToTrackActivity(view: View) {
+    fun redirectToStatsActivity(view: View) {
         val intent = Intent(this, Stats::class.java)
+        startActivity(intent)
+    }
+
+    fun redirectToHome(view: View) {
+        // Start the HomeActivity
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 

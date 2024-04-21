@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Track">
+
+    <ImageButton
+        android:id="@+id/buttonHome"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/home"
+        android:onClick="redirectToHome"
+        android:background="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
     
     <ImageView
         android:id = "@+id/viewImage"
@@ -35,7 +47,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/takePhotoButton"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:text="Choose From Gallery"/>
 
     <Button
@@ -46,19 +58,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/choosePhotoButton"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:text="Record Your Food"/>
 
-    <!-- Button to redirect to another activity -->
-    <Button
-        android:id="@+id/buttonRedirectToTrack2"
+    <TextView
+        android:id="@+id/textViewRedirectToTrack2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Type In Food to Record"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="redirectToTrackActivity2"
         app:layout_constraintTop_toBottomOf="@id/trackRecordButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="70dp"
+        />
 
 
 

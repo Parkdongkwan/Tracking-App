@@ -3,6 +3,7 @@ package eu.fyp.app
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.TextView
@@ -44,6 +45,12 @@ class Stats : AppCompatActivity() {
             // Update the food list
             updateFoodList(selectedDate, textFoodList)
         }
+    }
+
+    fun redirectToHome(view: View) {
+        // Start the HomeActivity
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 
     private fun updateFoodList(selectedDate: String, textFoodList: TextView) {

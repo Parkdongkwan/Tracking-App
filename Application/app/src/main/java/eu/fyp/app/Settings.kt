@@ -3,6 +3,7 @@ package eu.fyp.app
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -34,6 +35,12 @@ class Settings : AppCompatActivity() {
 
         // Initialize views and set up listeners
         setupUI()
+    }
+
+    fun redirectToHome(view: View) {
+        // Start the HomeActivity
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 
     private fun setupUI() {
@@ -97,7 +104,8 @@ class Settings : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val userData = snapshot.getValue(UserData::class.java)
                 val username = userData?.username ?: "Unknown"
-                settingsBinding.textUserInformation.text = "User: $username"
+                val usernameWithoutAlpha = username.substringBefore('@')
+                settingsBinding.textUserInformation.text = "User: $usernameWithoutAlpha"
             }
 
             override fun onCancelled(error: DatabaseError) {

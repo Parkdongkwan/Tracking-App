@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -60,10 +61,17 @@ class Track : AppCompatActivity() {
         binding.takePhotoButton.setOnClickListener { checkPermissionAndCaptureImage() }
         binding.choosePhotoButton.setOnClickListener { checkPermissionAndPickImage() }
         binding.trackRecordButton.setOnClickListener { processImageForTracking() }
-        binding.buttonRedirectToTrack2.setOnClickListener{
-            val intent = Intent(this, Track2::class.java)
-            startActivity(intent)
-        }
+    }
+
+    fun redirectToTrackActivity2(view: View) {
+        val intent = Intent(this, Track2::class.java)
+        startActivity(intent)
+    }
+
+    fun redirectToHome(view: View) {
+        // Start the HomeActivity
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 
     private fun checkPermissionAndCaptureImage() {

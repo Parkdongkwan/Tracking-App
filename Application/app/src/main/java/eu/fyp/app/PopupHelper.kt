@@ -48,7 +48,7 @@ object PopupHelper {
     }
 
     private fun fetchFoodDetails(activity: Activity, foodName: String, apiKey: String, recyclerView: RecyclerView) {
-        USDARetrofitClient.instance.searchFoods(foodName, apiKey, 5, 5)
+        USDARetrofitClient.instance.searchFoods(foodName, apiKey, 2, 10)
             .enqueue(object : Callback<FoodSearchResponse> {
                 override fun onResponse(call: Call<FoodSearchResponse>, response: Response<FoodSearchResponse>) {
                     if (response.isSuccessful) {

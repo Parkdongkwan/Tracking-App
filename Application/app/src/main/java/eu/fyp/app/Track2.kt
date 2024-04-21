@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
+import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -49,15 +50,20 @@ class Track2 : AppCompatActivity(), FoodAdapter.OnFoodClickListener {
             }
         }
 
-        // Set click listener for Redirect button
-        binding.buttonRedirectToTrack.setOnClickListener{
-            val intent = Intent(this, Track::class.java)
-            startActivity(intent)
-        }
+    }
+    fun redirectToTrackActivity(view: View) {
+        val intent = Intent(this, Track::class.java)
+        startActivity(intent)
+    }
+
+    fun redirectToHome(view: View) {
+        // Start the HomeActivity
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 
     private fun fetchFoodDetails(foodName: String, apiKey: String) {
-        USDARetrofitClient.instance.searchFoods(foodName, apiKey, 3, 5)
+        USDARetrofitClient.instance.searchFoods(foodName, apiKey, 2, 10)
             .enqueue(object : Callback<FoodSearchResponse> {
                 override fun onResponse(call: Call<FoodSearchResponse>, response: Response<FoodSearchResponse>) {
                     if (response.isSuccessful) {
