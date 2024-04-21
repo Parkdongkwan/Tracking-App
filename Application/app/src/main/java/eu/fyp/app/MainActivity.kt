@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         // Initialize buttons
         val trackButton = findViewById<Button>(R.id.trackButton)
         val statsButton = findViewById<Button>(R.id.statsButton)
-        val dashboardButton = findViewById<Button>(R.id.homeButton)
         val settingsButton = findViewById<Button>(R.id.settingsButton)
         val manageDailyIntakeText = findViewById<TextView>(R.id.tvManageDailyIntake)
 
@@ -45,10 +44,6 @@ class MainActivity : AppCompatActivity() {
 
         statsButton.setOnClickListener {
             navigateToActivity(Stats::class.java)
-        }
-
-        dashboardButton.setOnClickListener {
-            //Nothing
         }
 
         settingsButton.setOnClickListener {

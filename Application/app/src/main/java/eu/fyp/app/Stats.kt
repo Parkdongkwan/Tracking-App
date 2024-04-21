@@ -3,12 +3,10 @@ package eu.fyp.app
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.GestureDetector
-import android.view.MotionEvent
+import android.widget.Button
 import android.widget.CalendarView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GestureDetectorCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -19,8 +17,6 @@ import java.util.Locale
 
 class Stats : AppCompatActivity() {
 
-    private lateinit var gestureDetector: GestureDetectorCompat
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stats)
@@ -29,6 +25,12 @@ class Stats : AppCompatActivity() {
         val calendarView = findViewById<CalendarView>(R.id.calendarView)
         val textSelectedDate = findViewById<TextView>(R.id.textSelectedDate)
         val textFoodList = findViewById<TextView>(R.id.textFoodList)
+        val redirectButton = findViewById<Button>(R.id.buttonRedirectToStats2)
+
+        redirectButton.setOnClickListener{
+            val intent = Intent(this, Stats2::class.java)
+            startActivity(intent)
+        }
 
         // Set the CalendarView to the current date
         calendarView.date = System.currentTimeMillis()
@@ -41,43 +43,6 @@ class Stats : AppCompatActivity() {
             textSelectedDate.text = "Selected Date: $selectedDate"
             // Update the food list
             updateFoodList(selectedDate, textFoodList)
-        }
-        gestureDetector = GestureDetectorCompat(this, SwipeGestureListener())
-    }
-
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        return gestureDetector.onTouchEvent(event) || super.onTouchEvent(event)
-    }
-
-    inner class SwipeGestureListener : GestureDetector.SimpleOnGestureListener() {
-        private val SWIPE_THRESHOLD = 100
-        private val SWIPE_VELOCITY_THRESHOLD = 100
-
-        override fun onFling(
-            e1: MotionEvent?,
-            e2: MotionEvent,
-            velocityX: Float,
-            velocityY: Float
-        ): Boolean {
-            e1 ?: return false
-            e2 ?: return false
-
-            val diffY = e2.y - e1.y
-            val diffX = e2.x - e1.x
-
-            if (Math.abs(diffX) > Math.abs(diffY)) {
-                if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
-                    if (diffX > 0) {
-                        return true
-                    } else {
-                        // Swipe left
-                        startActivity(Intent(this@Stats, Stats2::class.java))
-                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-                        return true
-                    }
-                }
-            }
-            return super.onFling(e1, e2, velocityX, velocityY)
         }
     }
 

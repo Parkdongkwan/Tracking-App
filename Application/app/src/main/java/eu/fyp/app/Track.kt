@@ -9,14 +9,11 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.GestureDetector
-import android.view.MotionEvent
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.GestureDetectorCompat
 import eu.fyp.app.databinding.ActivityTrackBinding
 import eu.fyp.app.ml.Model
 import org.tensorflow.lite.DataType
@@ -30,8 +27,6 @@ import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 class Track : AppCompatActivity() {
 
     private lateinit var binding: ActivityTrackBinding
-
-    private lateinit var gestureDetector: GestureDetectorCompat
 
     private val takePictureLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -59,50 +54,16 @@ class Track : AppCompatActivity() {
         binding = ActivityTrackBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupButtonListeners()
-        gestureDetector = GestureDetectorCompat(this, SwipeGestureListener())
-    }
-
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        return gestureDetector.onTouchEvent(event) || super.onTouchEvent(event)
-    }
-
-    inner class SwipeGestureListener : GestureDetector.SimpleOnGestureListener() {
-        private val SWIPE_THRESHOLD = 100
-        private val SWIPE_VELOCITY_THRESHOLD = 100
-
-        override fun onFling(
-            e1: MotionEvent?,
-            e2: MotionEvent,
-            velocityX: Float,
-            velocityY: Float
-        ): Boolean {
-            e1 ?: return false
-            e2 ?: return false
-
-            val diffY = e2.y - e1.y
-            val diffX = e2.x - e1.x
-
-            if (Math.abs(diffX) > Math.abs(diffY)) {
-                if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
-                    if (diffX > 0) {
-                        return true
-                    } else {
-                        // Swipe left
-                        startActivity(Intent(this@Track, Track2::class.java))
-                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-
-                        return true
-                    }
-                }
-            }
-            return super.onFling(e1, e2, velocityX, velocityY)
-        }
     }
 
     private fun setupButtonListeners() {
         binding.takePhotoButton.setOnClickListener { checkPermissionAndCaptureImage() }
         binding.choosePhotoButton.setOnClickListener { checkPermissionAndPickImage() }
         binding.trackRecordButton.setOnClickListener { processImageForTracking() }
+        binding.buttonRedirectToTrack2.setOnClickListener{
+            val intent = Intent(this, Track2::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun checkPermissionAndCaptureImage() {

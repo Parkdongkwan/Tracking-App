@@ -2,6 +2,7 @@ package eu.fyp.app
 
 import FoodNutritionResponse
 import FoodSearchResponse
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -47,6 +48,12 @@ class Track2 : AppCompatActivity(), FoodAdapter.OnFoodClickListener {
                 Toast.makeText(this, "Please enter a food name", Toast.LENGTH_SHORT).show()
             }
         }
+
+        // Set click listener for Redirect button
+        binding.buttonRedirectToTrack.setOnClickListener{
+            val intent = Intent(this, Track::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun fetchFoodDetails(foodName: String, apiKey: String) {
@@ -63,8 +70,8 @@ class Track2 : AppCompatActivity(), FoodAdapter.OnFoodClickListener {
                             }
                             // Initialize and set up the RecyclerView adapter
                             val adapter = FoodAdapter(foodList, this@Track2)
-                            binding.recipesRecyclerView.adapter = adapter
-                            binding.recipesRecyclerView.layoutManager = LinearLayoutManager(this@Track2)
+                            binding.foodsRecyclerView.adapter = adapter
+                            binding.foodsRecyclerView.layoutManager = LinearLayoutManager(this@Track2)
                         }
                     } else {
                         Log.e("API Error", "Response Code: ${response.code()}")

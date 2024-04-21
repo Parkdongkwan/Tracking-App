@@ -64,6 +64,7 @@ object PopupHelper {
                                 }
                             })
                             recyclerView.adapter = adapter
+                            recyclerView.layoutManager = LinearLayoutManager(activity)
                         }
                     } else {
                         Log.e("API Error", "Response Code: ${response.code()}")

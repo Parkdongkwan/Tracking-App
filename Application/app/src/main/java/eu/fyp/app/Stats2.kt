@@ -1,8 +1,10 @@
 package eu.fyp.app
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.github.mikephil.charting.charts.BarChart
@@ -47,6 +49,11 @@ class Stats2 : AppCompatActivity() {
             // Retrieve weekly data from the database
             retrieveWeeklyData(uid)
         }
+    }
+
+    fun redirectToTrackActivity(view: View) {
+        val intent = Intent(this, Stats::class.java)
+        startActivity(intent)
     }
 
     private fun retrieveWeeklyData(userId: String) {

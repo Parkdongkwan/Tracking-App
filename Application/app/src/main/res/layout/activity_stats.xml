@@ -38,4 +38,16 @@
         android:textSize="14sp"
         android:padding="8dp"/>
 
+    <!-- Button to redirect to another activity -->
+    <Button
+        android:id="@+id/buttonRedirectToStats2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Statistics"
+        android:layout_gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/textFoodList"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
 </LinearLayout>

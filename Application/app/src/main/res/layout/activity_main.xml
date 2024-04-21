@@ -64,22 +64,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <!-- Navigation buttons -->
-    <Button
-        android:id="@+id/homeButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Home"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/trackButton" />
+<!--    &lt;!&ndash; Navigation buttons &ndash;&gt;-->
+<!--    <Button-->
+<!--        android:id="@+id/homeButton"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Home"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/trackButton" />-->
 
     <Button
         android:id="@+id/trackButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Track"
-        app:layout_constraintStart_toEndOf="@id/homeButton"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/statsButton" />
 
