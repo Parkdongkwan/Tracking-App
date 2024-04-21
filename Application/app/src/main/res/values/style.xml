@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Style for date text appearance -->
+    <style name="CalendarDateStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+        <!-- Add more styling attributes as needed -->
+    </style>
+
+    <!-- Style for weekday text appearance -->
+    <style name="CalendarWeekdayStyle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <!-- Add more styling attributes as needed -->
+    </style>
+
+</resources>

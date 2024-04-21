@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- TextView to display "Your Today's Calorie" -->
+    <TextView
+        android:id="@+id/tvTodayCalorieTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Today's Calorie"
+        android:textSize="30sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@id/circularGauge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <!-- Placeholder for circular gauge -->
+    <ProgressBar
+        android:id="@+id/circularGauge"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:layout_margin="16dp"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:progressDrawable="@drawable/circular_progress_bar"
+        android:indeterminate="false"
+        android:max="2500"
+        android:progress="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <!-- TextView to display "You have eaten _this much of Calorie" -->
+    <TextView
+        android:id="@+id/tvEatenCalorie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calorie Value"
+        android:textSize="20sp"
+        android:layout_below="@id/circularGauge"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/circularGauge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvManageDailyIntake"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Manage Daily Intake"
+        android:textSize="20sp"
+        android:clickable="true"
+        android:layout_below="@id/tvEatenCalorie"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tvEatenCalorie"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <!-- Navigation buttons -->
+    <Button
+        android:id="@+id/homeButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Home"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/trackButton" />
+
+    <Button
+        android:id="@+id/trackButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Track"
+        app:layout_constraintStart_toEndOf="@id/homeButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/statsButton" />
+
+    <Button
+        android:id="@+id/statsButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Stats"
+        app:layout_constraintStart_toEndOf="@id/trackButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/settingsButton" />
+
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        app:layout_constraintStart_toEndOf="@id/statsButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
