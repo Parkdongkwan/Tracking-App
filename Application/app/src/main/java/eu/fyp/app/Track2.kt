@@ -23,8 +23,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+// Activity for tracking food intake
 class Track2 : AppCompatActivity(), FoodAdapter.OnFoodClickListener {
+
+    // View binding
     private lateinit var binding: ActivityTrack2Binding
+
+    // API key for accessing USDA API
     private val apiKey = "1dff5mOKwq4Ns3PJ7lG73VtEoaWl6t156ViOLLW6"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +37,7 @@ class Track2 : AppCompatActivity(), FoodAdapter.OnFoodClickListener {
         binding = ActivityTrack2Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Set click listener for the search button
+        // Set up click listener for the search button
         binding.buttonSearch.setOnClickListener {
             // Get the entered food name
             val foodName = binding.editTextFoodName.text.toString().trim()
@@ -49,43 +54,40 @@ class Track2 : AppCompatActivity(), FoodAdapter.OnFoodClickListener {
                 Toast.makeText(this, "Please enter a food name", Toast.LENGTH_SHORT).show()
             }
         }
-
     }
+
+    // Method to redirect to Track activity
     fun redirectToTrackActivity(view: View) {
         val intent = Intent(this, Track::class.java)
         startActivity(intent)
     }
 
+    // Method to redirect to Home activity
     fun redirectToHome(view: View) {
-        // Start the HomeActivity
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 
+    // Method to fetch food details from USDA API
     private fun fetchFoodDetails(foodName: String, apiKey: String) {
-        USDARetrofitClient.instance.searchFoods(foodName, apiKey,1,  20)
+        USDARetrofitClient.instance.searchFoods(foodName, apiKey, 1, 20)
             .enqueue(object : Callback<FoodSearchResponse> {
                 override fun onResponse(call: Call<FoodSearchResponse>, response: Response<FoodSearchResponse>) {
                     if (response.isSuccessful) {
                         val foods = response.body()?.foods
-                        if(foods.isNullOrEmpty()){
-                            Toast.makeText(this@Track2, "No $foodName data available",Toast.LENGTH_SHORT).show()
-                        }
-                        else {
+                        if (foods.isNullOrEmpty()) {
+                            Toast.makeText(this@Track2, "No $foodName data available", Toast.LENGTH_SHORT).show()
+                        } else {
                             foods?.let {
                                 val foodList = mutableListOf<Food>()
                                 for (food in it) {
-                                    Log.d(
-                                        "Food",
-                                        "Food Name: ${food.description}, NDBNO: ${food.fdcId}"
-                                    )
+                                    Log.d("Food", "Food Name: ${food.description}, NDBNO: ${food.fdcId}")
                                     foodList.add(Food(food.fdcId, food.description))
                                 }
                                 // Initialize and set up the RecyclerView adapter
                                 val adapter = FoodAdapter(foodList, this@Track2)
                                 binding.foodsRecyclerView.adapter = adapter
-                                binding.foodsRecyclerView.layoutManager =
-                                    LinearLayoutManager(this@Track2)
+                                binding.foodsRecyclerView.layoutManager = LinearLayoutManager(this@Track2)
                             }
                         }
                     } else {
@@ -100,11 +102,13 @@ class Track2 : AppCompatActivity(), FoodAdapter.OnFoodClickListener {
             })
     }
 
+    // Method invoked when an item in RecyclerView is clicked
     override fun onItemClick(food: Food) {
         // Handle item click here
         showFoodNutritionalInfoDialog(food.ndbno, apiKey, food.name)
     }
 
+    // Method to show dialog with nutritional information for a selected food
     private fun showFoodNutritionalInfoDialog(ndbno: String, apiKey: String, foodName: String) {
         val inputLayout = LinearLayout(this@Track2)
         inputLayout.orientation = LinearLayout.VERTICAL
@@ -118,6 +122,7 @@ class Track2 : AppCompatActivity(), FoodAdapter.OnFoodClickListener {
         dialogBuilder.setTitle("Nutritional Information")
         dialogBuilder.setView(inputLayout)
 
+        // Fetch nutritional information for the selected food
         USDARetrofitClient.instance.getFoodNutrition(ndbno, apiKey)
             .enqueue(object : Callback<FoodNutritionResponse> {
                 override fun onResponse(call: Call<FoodNutritionResponse>, response: Response<FoodNutritionResponse>) {
@@ -136,17 +141,16 @@ class Track2 : AppCompatActivity(), FoodAdapter.OnFoodClickListener {
                                 )
                             }
 
+                            // Construct details string with relevant nutrients
                             val details = StringBuilder()
                             details.append("Food Name: $foodName\n")
-
-                            // Construct details string with relevant nutrients
                             relevantNutrients.forEach { nutrient ->
                                 details.append("${nutrient.nutrient.name}: ${nutrient.amount} ${nutrient.nutrient.unitName}\n")
                             }
 
                             dialogBuilder.setMessage(details.toString().trim())
 
-                            // Set positive button
+                            // Set positive button for confirmation
                             dialogBuilder.setPositiveButton("Confirm") { dialog, _ ->
                                 // Get portion value from EditText
                                 val portionValue = portionEditText.text.toString().toDoubleOrNull() ?: 1.0
@@ -175,6 +179,7 @@ class Track2 : AppCompatActivity(), FoodAdapter.OnFoodClickListener {
                 }
             })
     }
+
 
     private fun updateDatabaseWithFoodIntake(nutrition: FoodNutritionResponse, foodName: String, portionValue: Double) {
         val database = FirebaseDatabase.getInstance().reference

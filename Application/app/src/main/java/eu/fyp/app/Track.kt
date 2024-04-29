@@ -25,10 +25,13 @@ import org.tensorflow.lite.support.image.ops.ResizeOp
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 
 
+// Activity for tracking images
 class Track : AppCompatActivity() {
 
+    // View binding
     private lateinit var binding: ActivityTrackBinding
 
+    // Activity result launcher for capturing image from camera
     private val takePictureLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -38,6 +41,7 @@ class Track : AppCompatActivity() {
         }
     }
 
+    // Activity result launcher for picking image from gallery
     private val pickImageLauncher = registerForActivityResult(
         ActivityResultContracts.GetContent()
     ) { uri ->
@@ -46,6 +50,7 @@ class Track : AppCompatActivity() {
     }
 
     companion object {
+        // Request codes for camera and gallery permissions
         private const val CAMERA_PERMISSION_CODE = 102
         private const val GALLERY_PERMISSION_CODE = 103
     }
@@ -54,26 +59,30 @@ class Track : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityTrackBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        // Set up button listeners
         setupButtonListeners()
     }
 
+    // Method to set up button click listeners
     private fun setupButtonListeners() {
         binding.takePhotoButton.setOnClickListener { checkPermissionAndCaptureImage() }
         binding.choosePhotoButton.setOnClickListener { checkPermissionAndPickImage() }
         binding.trackRecordButton.setOnClickListener { processImageForTracking() }
     }
 
+    // Method to redirect to Track2 activity
     fun redirectToTrackActivity2(view: View) {
         val intent = Intent(this, Track2::class.java)
         startActivity(intent)
     }
 
+    // Method to redirect to Home activity
     fun redirectToHome(view: View) {
-        // Start the HomeActivity
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 
+    // Method to check and request camera permission before capturing image
     private fun checkPermissionAndCaptureImage() {
         if (hasPermission(Manifest.permission.CAMERA)) {
             dispatchTakePictureIntent()
@@ -82,7 +91,7 @@ class Track : AppCompatActivity() {
         }
     }
 
-
+    // Method to check and request gallery permission before picking image
     private fun checkPermissionAndPickImage() {
         if (hasPermission(Manifest.permission.READ_MEDIA_IMAGES)) {
             dispatchPickImageIntent()
@@ -91,22 +100,27 @@ class Track : AppCompatActivity() {
         }
     }
 
+    // Method to check if permission is granted
     private fun hasPermission(permission: String): Boolean =
         ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
 
+    // Method to request permission
     private fun requestPermission(permission: String, requestCode: Int) {
         ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
     }
 
+    // Method to start camera intent for capturing image
     private fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         takePictureLauncher.launch(takePictureIntent)
     }
 
+    // Method to start gallery intent for picking image
     private fun dispatchPickImageIntent() {
         pickImageLauncher.launch("image/*")
     }
 
+    // Method to handle permission request result
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<out String>, grantResults: IntArray
     ) {

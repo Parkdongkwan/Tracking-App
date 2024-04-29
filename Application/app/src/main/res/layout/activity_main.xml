@@ -79,6 +79,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Track"
+        android:drawableTop="@drawable/track"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/statsButton" />
@@ -87,6 +88,7 @@
         android:id="@+id/statsButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:drawableTop="@drawable/stats"
         android:text="Stats"
         app:layout_constraintStart_toEndOf="@id/trackButton"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -96,6 +98,7 @@
         android:id="@+id/settingsButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:drawableTop="@drawable/settings"
         android:text="Settings"
         app:layout_constraintStart_toEndOf="@id/statsButton"
         app:layout_constraintBottom_toBottomOf="parent"
