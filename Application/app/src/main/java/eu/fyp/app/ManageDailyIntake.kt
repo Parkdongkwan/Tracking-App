@@ -51,6 +51,7 @@ class ManageDailyIntake : AppCompatActivity() {
     }
 
     // Fetch daily intakes from Firebase
+// Fetch daily intakes from Firebase
     private fun fetchDailyIntakes() {
         currentUser?.uid?.let { userId ->
             val userDailyIntakeRef: DatabaseReference = database.child("users").child(userId).child("dailyIntakes")
@@ -62,7 +63,13 @@ class ManageDailyIntake : AppCompatActivity() {
                         val dailyIntake = snapshot.getValue(DailyIntakes::class.java)
                         dailyIntake?.let { dailyIntakesList.add(it) }
                     }
-                    dailyIntakeAdapter.setData(dailyIntakesList)
+                    if (dailyIntakesList.isEmpty()) {
+                        // If no daily intakes, set adapter with a single item
+                        dailyIntakeAdapter.setData(listOf(DailyIntakes("No Intake Today")))
+                    } else {
+                        // Set adapter with fetched daily intakes
+                        dailyIntakeAdapter.setData(dailyIntakesList)
+                    }
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
@@ -72,6 +79,7 @@ class ManageDailyIntake : AppCompatActivity() {
             })
         }
     }
+
 
     // Show edit and delete options dialog
     private fun showEditDeleteDialog(position: Int) {

@@ -32,7 +32,7 @@ exports.resetDailyIntake = functions.pubsub.schedule("0 0 * * *").
       return null;
     });
 
-exports.resetWeeklyData = functions.pubsub.schedule("0 12 * * MON")
+exports.resetWeeklyData = functions.pubsub.schedule("0 0 * * MON")
     .timeZone("Asia/Kuala_Lumpur")
     .onRun((context) => {
       // Get a reference to your Firebase database

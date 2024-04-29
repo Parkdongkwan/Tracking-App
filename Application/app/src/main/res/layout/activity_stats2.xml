@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Composition of Nutritions (Pie Chart)"
+            android:text="Weekly Composition of Nutritions (Pie Chart)"
             android:textAlignment="center"
             android:textSize="20dp"/>
 
@@ -33,13 +33,13 @@
             android:id="@+id/pieChart"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="30dp"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Composition of Nutritions (Bar Chart)"
+            android:text="Weekly Composition of Nutritions (Bar Chart)"
             android:textAlignment="center"
             android:textSize="20dp"/>
 
@@ -50,13 +50,13 @@
             android:id="@+id/barChart"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="30dp"
              />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Calorie Intake In This Week"
+            android:text="Weekly Calorie Intake In This Week"
             android:textAlignment="center"
             android:textSize="20dp"/>
 

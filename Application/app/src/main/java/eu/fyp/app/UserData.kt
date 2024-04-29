@@ -7,7 +7,8 @@ data class UserData(
     val foodIntakes: MutableList<FoodIntake> = mutableListOf(),
     val weeklyIntake: MutableList<WeeklyIntake> = mutableListOf(),
     var dailyIntakes: MutableList<DailyIntakes> = mutableListOf(),
-    var userCalorieGoal: Int = 2500, // Default value for user's calorie goal
+    var userCalorieGoal: Int = 0, // Default value for user's calorie goal
+    val gender: String? = null,
 )
 
 data class DailyIntakes(

@@ -41,18 +41,23 @@ object PopupHelper {
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
         val labels = activity.assets.open("labels.txt").bufferedReader().readLines()
-        val foodName = labels[maxIdx]
+        val foodName = labels[maxIdx].replace("_", " ")
+
         fetchFoodDetails(activity, foodName, "1dff5mOKwq4Ns3PJ7lG73VtEoaWl6t156ViOLLW6", recyclerView)
 
         popupWindow.showAtLocation(anchorView, Gravity.CENTER, 0, 0)
     }
 
     private fun fetchFoodDetails(activity: Activity, foodName: String, apiKey: String, recyclerView: RecyclerView) {
-        USDARetrofitClient.instance.searchFoods(foodName, apiKey, 2, 10)
+        USDARetrofitClient.instance.searchFoods(foodName, apiKey, 1,20)
             .enqueue(object : Callback<FoodSearchResponse> {
                 override fun onResponse(call: Call<FoodSearchResponse>, response: Response<FoodSearchResponse>) {
                     if (response.isSuccessful) {
                         val foods = response.body()?.foods
+                        if(foods.isNullOrEmpty()){
+                            Toast.makeText(activity, "No $foodName data available",Toast.LENGTH_SHORT).show()
+                        }
+                        else{
                         foods?.let {
                             val foodList = mutableListOf<Food>()
                             for (food in it) {
@@ -65,6 +70,7 @@ object PopupHelper {
                             })
                             recyclerView.adapter = adapter
                             recyclerView.layoutManager = LinearLayoutManager(activity)
+                        }
                         }
                     } else {
                         Log.e("API Error", "Response Code: ${response.code()}")
@@ -105,7 +111,7 @@ object PopupHelper {
 
                             val input = EditText(activity)
                             input.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
-                            input.hint = "Enter portion value"
+                            input.hint = "Enter portion value (1 portion is 100g)"
                             dialogBuilder.setView(input)
 
                             dialogBuilder.setMessage(details.toString())

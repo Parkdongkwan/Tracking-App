@@ -63,21 +63,30 @@ class Track2 : AppCompatActivity(), FoodAdapter.OnFoodClickListener {
     }
 
     private fun fetchFoodDetails(foodName: String, apiKey: String) {
-        USDARetrofitClient.instance.searchFoods(foodName, apiKey, 2, 10)
+        USDARetrofitClient.instance.searchFoods(foodName, apiKey,1,  20)
             .enqueue(object : Callback<FoodSearchResponse> {
                 override fun onResponse(call: Call<FoodSearchResponse>, response: Response<FoodSearchResponse>) {
                     if (response.isSuccessful) {
                         val foods = response.body()?.foods
-                        foods?.let {
-                            val foodList = mutableListOf<Food>()
-                            for (food in it) {
-                                Log.d("Food", "Food Name: ${food.description}, NDBNO: ${food.fdcId}")
-                                foodList.add(Food(food.fdcId, food.description))
+                        if(foods.isNullOrEmpty()){
+                            Toast.makeText(this@Track2, "No $foodName data available",Toast.LENGTH_SHORT).show()
+                        }
+                        else {
+                            foods?.let {
+                                val foodList = mutableListOf<Food>()
+                                for (food in it) {
+                                    Log.d(
+                                        "Food",
+                                        "Food Name: ${food.description}, NDBNO: ${food.fdcId}"
+                                    )
+                                    foodList.add(Food(food.fdcId, food.description))
+                                }
+                                // Initialize and set up the RecyclerView adapter
+                                val adapter = FoodAdapter(foodList, this@Track2)
+                                binding.foodsRecyclerView.adapter = adapter
+                                binding.foodsRecyclerView.layoutManager =
+                                    LinearLayoutManager(this@Track2)
                             }
-                            // Initialize and set up the RecyclerView adapter
-                            val adapter = FoodAdapter(foodList, this@Track2)
-                            binding.foodsRecyclerView.adapter = adapter
-                            binding.foodsRecyclerView.layoutManager = LinearLayoutManager(this@Track2)
                         }
                     } else {
                         Log.e("API Error", "Response Code: ${response.code()}")
@@ -101,7 +110,7 @@ class Track2 : AppCompatActivity(), FoodAdapter.OnFoodClickListener {
         inputLayout.orientation = LinearLayout.VERTICAL
 
         val portionEditText = EditText(this@Track2)
-        portionEditText.hint = "Enter portion value"
+        portionEditText.hint = "Enter portion value (1 portion is 100g)"
         portionEditText.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
         inputLayout.addView(portionEditText)
 

@@ -40,16 +40,6 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:text="2500 is average calorie intake."
-        android:textColor="#808080"
-        android:layout_below="@id/textGoalCalorie"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="50dp" />
-
     <EditText
         android:id="@+id/editGoalCalorie"
         android:layout_width="150dp"
@@ -71,15 +61,6 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="20dp" />
 
-    <!-- Dark Mode Toggle -->
-    <Switch
-        android:id="@+id/switchDarkMode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Dark Mode"
-        android:layout_below="@id/btnSaveGoalCalorie"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp" />
 
     <!-- Logout Button -->
     <Button
